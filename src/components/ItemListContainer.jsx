@@ -1,7 +1,17 @@
-export default function ItemListContainer({greeting}){
+import { useState } from "react";
+import { getProducts } from "../asyncMock"
+import { useEffect } from "react";
+import ProductCard from "./ProductCard";
+
+export default function ItemListContainer(){
+    const [products, setProducts] = useState([]);
+
+    useEffect (() => {
+        getProducts.then (data => setProducts(data));
+    }, []);
     return (<>
-    <section className="my-5">
-        <h2 className="fw-bold text-center">{greeting}</h2>
+    <section>
+        {products.map (product => <ProductCard key={product.id} product={product}/>)}
     </section>
     </>)
 }
